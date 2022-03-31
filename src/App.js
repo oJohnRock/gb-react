@@ -39,6 +39,23 @@ function App() {
         setText(e.target.value);
     };
 
+    useEffect(() => {
+        const lastMessage = messageList[messageList.length - 1];
+
+        if (lastMessage.author !== "bot") {
+            setMessageList((prevMessageList) => {
+                const result = Object.assign([], prevMessageList);
+                const newMessage = {
+                    author: "bot",
+                    text: "message from bot for user " + author,
+                };
+                result.push(newMessage);
+
+                return result;
+            });
+        }
+    }, [messageList]);
+
     return (
         <div className="App">
             <header className="App-header">
