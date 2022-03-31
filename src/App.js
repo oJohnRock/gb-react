@@ -42,18 +42,20 @@ function App() {
     useEffect(() => {
         const lastMessage = messageList[messageList.length - 1];
 
-        if (lastMessage.author !== "bot") {
-            setMessageList((prevMessageList) => {
-                const result = Object.assign([], prevMessageList);
-                const newMessage = {
-                    author: "bot",
-                    text: "message from bot for user " + author,
-                };
-                result.push(newMessage);
+        const timerId = setTimeout(() => {
+            if (lastMessage.author !== "bot") {
+                setMessageList((prevMessageList) => {
+                    const result = Object.assign([], prevMessageList);
+                    const newMessage = {
+                        author: "bot",
+                        text: "message from bot for user " + author,
+                    };
+                    result.push(newMessage);
 
-                return result;
-            });
-        }
+                    return result;
+                });
+            }
+        }, 1500);
     }, [messageList]);
 
     return (
