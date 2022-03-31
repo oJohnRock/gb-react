@@ -1,9 +1,11 @@
-import logo from './logo.svg';
-import './App.scss';
-import Message from './Message';
+import React, { useState } from "react";
+import "./App.scss";
+import Message from "./Message";
 
 function App() {
-    const messageText = 'Урок 1. Знакомство с ReactJS. Первые компоненты';
+    const messageText = "Урок 2. Жизненный цикл компонента";
+
+    const [messageList, setMessageList] = useState([]);
 
     return (
         <div className="App">
