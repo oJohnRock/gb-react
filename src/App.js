@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./App.scss";
 import Title from "./Title";
 import { Button, TextField } from "@material-ui/core";
@@ -42,6 +42,7 @@ function App() {
 
     useEffect(() => {
         const lastMessage = messageList[messageList.length - 1];
+        if (lastMessage == undefined) return;
 
         const timerId = setTimeout(() => {
             if (lastMessage.author !== "bot") {
@@ -59,6 +60,11 @@ function App() {
         }, 1500);
     }, [messageList]);
 
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
     return (
         <header className="header">
             <div className="container">
@@ -71,6 +77,8 @@ function App() {
                             variant="outlined"
                             className="messages__input"
                             onChange={authorChange}
+                            ref={inputRef}
+                            autoFocus
                         />
                         <TextField
                             id="outlined-basic"
