@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Title from "./Title";
+import { Button, TextField } from "@material-ui/core";
 
 function App() {
     const title = "Урок 3. Virtual DOM. Material UI. PropTypes";
@@ -63,30 +64,31 @@ function App() {
             <div className="container">
                 <div className="header__body">
                     <Title title={title} />
-                    <div className="messages">
-                        <form className="messages__form">
-                            <input
-                                className="messages__input"
-                                type="text"
-                                placeholder="name"
-                                onChange={authorChange}
-                            />
-                            <input
-                                className="messages__input"
-                                type="text"
-                                placeholder="message"
-                                onChange={textChange}
-                            />
-                            <button
-                                type="button"
-                                className="messages__btn"
-                                onClick={addMessage}
-                            >
-                                Add
-                            </button>
-                        </form>
-                        <ul className="messages__list">{list}</ul>
-                    </div>
+                    <form className="messages__form">
+                        <TextField
+                            id="outlined-basic"
+                            label="name"
+                            variant="outlined"
+                            className="messages__input"
+                            onChange={authorChange}
+                        />
+                        <TextField
+                            id="outlined-basic"
+                            label="message"
+                            variant="outlined"
+                            className="messages__input"
+                            onChange={textChange}
+                        />
+                        <Button
+                            variant="contained"
+                            type="button"
+                            className="messages__btn"
+                            onClick={addMessage}
+                        >
+                            Add
+                        </Button>
+                    </form>
+                    <ul className="messages__list">{list}</ul>
                 </div>
             </div>
         </header>
