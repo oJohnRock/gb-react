@@ -7,6 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { ThemeProvider, useTheme, createTheme } from "@material-ui/core/styles";
 
 function App() {
     const title = "Урок 3. Virtual DOM. Material UI. PropTypes";
@@ -76,63 +77,129 @@ function App() {
         inputRef.current?.focus();
     }, []);
 
-    return (
-        <header className="header">
-            <div className="container">
-                <div className="header__body">
-                    <Title title={title} />
-                    <div className="header__wrapper">
-                        <List className="chats">
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary="Study" />
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary="Work" />
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary="Enjoy" />
-                                </ListItemButton>
-                            </ListItem>
-                        </List>
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#08ffc8",
+            },
+            secondary: {
+                main: "#204969",
+            },
+        },
+    });
 
-                        <div className="messages">
-                            <form className="messages__form">
-                                <TextField
-                                    id="outlined-basic"
-                                    label="name"
-                                    variant="outlined"
-                                    className="messages__input"
-                                    onChange={authorChange}
-                                    ref={inputRef}
-                                    autoFocus
-                                />
-                                <TextField
-                                    id="outlined-basic"
-                                    label="message"
-                                    variant="outlined"
-                                    className="messages__input"
-                                    onChange={textChange}
-                                />
-                                <Button
-                                    variant="contained"
-                                    type="button"
-                                    className="messages__btn"
-                                    onClick={addMessage}
+    return (
+        <ThemeProvider theme={theme}>
+            <header className="header">
+                <div className="container">
+                    <div className="header__body">
+                        <Title title={title} />
+                        <div className="header__wrapper">
+                            <List className="chats">
+                                <ListItem
+                                    disablePadding
+                                    style={{
+                                        backgroundColor:
+                                            theme.palette.primary.main,
+                                        borderColor:
+                                            theme.palette.secondary.main,
+                                        borderRadius: 3,
+                                        marginBottom: 10,
+                                    }}
                                 >
-                                    Add
-                                </Button>
-                            </form>
-                            <ul className="messages__list">{list}</ul>
+                                    <ListItemButton>
+                                        <ListItemText primary="Study" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem
+                                    disablePadding
+                                    style={{
+                                        backgroundColor:
+                                            theme.palette.primary.main,
+                                        borderColor:
+                                            theme.palette.secondary.main,
+                                        borderRadius: 3,
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    <ListItemButton>
+                                        <ListItemText primary="Work" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem
+                                    disablePadding
+                                    style={{
+                                        backgroundColor:
+                                            theme.palette.primary.main,
+                                        borderColor:
+                                            theme.palette.secondary.main,
+                                        borderRadius: 3,
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    <ListItemButton>
+                                        <ListItemText primary="Enjoy" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
+
+                            <div className="messages">
+                                <form className="messages__form">
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="name"
+                                        variant="outlined"
+                                        className="messages__input"
+                                        onChange={authorChange}
+                                        ref={inputRef}
+                                        autoFocus
+                                        style={{
+                                            backgroundColor:
+                                                theme.palette.primary.main,
+                                            borderColor:
+                                                theme.palette.secondary.main,
+                                            borderRadius: 3,
+                                            marginBottom: 10,
+                                        }}
+                                    />
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="message"
+                                        variant="outlined"
+                                        className="messages__input"
+                                        onChange={textChange}
+                                        style={{
+                                            backgroundColor:
+                                                theme.palette.primary.main,
+                                            borderColor:
+                                                theme.palette.secondary.main,
+                                            borderRadius: 3,
+                                            marginBottom: 10,
+                                        }}
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        type="button"
+                                        className="messages__btn"
+                                        onClick={addMessage}
+                                        style={{
+                                            backgroundColor:
+                                                theme.palette.primary.main,
+                                            borderColor:
+                                                theme.palette.secondary.main,
+                                            borderRadius: 3,
+                                        }}
+                                    >
+                                        Add
+                                    </Button>
+                                </form>
+                                <ul className="messages__list">{list}</ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        </ThemeProvider>
     );
 }
 
