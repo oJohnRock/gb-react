@@ -33,9 +33,20 @@ body {
         font-size: 3rem;
         padding: 20px;
     }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.chats {
+    width: 25%;
 }
 
 .messages {
+    width: 70%;
+
     &__form {
         width: 100%;
         margin-bottom: 10px;

@@ -1,10 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./App.scss";
 import Title from "./Title";
-import { Button, TextField } from "@material-ui/core";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 function App() {
     const title = "Урок 3. Virtual DOM. Material UI. PropTypes";
+
+    const chats = [
+        { id: "chat-1", name: "study" },
+        { id: "chat-2", name: "work" },
+        { id: "chat-3", name: "enjoy" },
+    ];
 
     const [messageList, setMessageList] = useState([
         { author: "max", text: "dvbfblvesbvbaes" },
@@ -70,33 +81,55 @@ function App() {
             <div className="container">
                 <div className="header__body">
                     <Title title={title} />
-                    <form className="messages__form">
-                        <TextField
-                            id="outlined-basic"
-                            label="name"
-                            variant="outlined"
-                            className="messages__input"
-                            onChange={authorChange}
-                            ref={inputRef}
-                            autoFocus
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            label="message"
-                            variant="outlined"
-                            className="messages__input"
-                            onChange={textChange}
-                        />
-                        <Button
-                            variant="contained"
-                            type="button"
-                            className="messages__btn"
-                            onClick={addMessage}
-                        >
-                            Add
-                        </Button>
-                    </form>
-                    <ul className="messages__list">{list}</ul>
+                    <div className="header__wrapper">
+                        <List className="chats">
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemText primary="Study" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemText primary="Work" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemText primary="Enjoy" />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+
+                        <div className="messages">
+                            <form className="messages__form">
+                                <TextField
+                                    id="outlined-basic"
+                                    label="name"
+                                    variant="outlined"
+                                    className="messages__input"
+                                    onChange={authorChange}
+                                    ref={inputRef}
+                                    autoFocus
+                                />
+                                <TextField
+                                    id="outlined-basic"
+                                    label="message"
+                                    variant="outlined"
+                                    className="messages__input"
+                                    onChange={textChange}
+                                />
+                                <Button
+                                    variant="contained"
+                                    type="button"
+                                    className="messages__btn"
+                                    onClick={addMessage}
+                                >
+                                    Add
+                                </Button>
+                            </form>
+                            <ul className="messages__list">{list}</ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
