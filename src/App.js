@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import Message from "./Message";
+import Title from "./Title";
 
 function App() {
-    const messageText = "Урок 2. Жизненный цикл компонента";
+    const title = "Урок 3. Virtual DOM. Material UI. PropTypes";
 
     const [messageList, setMessageList] = useState([
         { author: "max", text: "dvbfblvesbvbaes" },
         { author: "lex", text: "svnlkbnklb" },
     ]);
     const addMessage = () => {
+        if (author.length < 3 || text.length === 0) return;
+
         setMessageList((prevMessageList) => {
             const result = Object.assign([], prevMessageList);
             const newMessage = { author: author, text: text };
@@ -20,12 +22,10 @@ function App() {
     };
     const list = messageList.map((el) => {
         return (
-            <>
-                <li className="message__item">
-                    <h4 className="message__author">{el.author}:</h4>
-                    <p className="message__text">{el.text}</p>
-                </li>
-            </>
+            <li className="messages__item">
+                <h4 className="messages__author">{el.author}:</h4>
+                <p className="messages__text">{el.text}</p>
+            </li>
         );
     });
 
@@ -59,35 +59,37 @@ function App() {
     }, [messageList]);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <Message messageText={messageText} />
-                <div className="message__wrapper">
-                    <form className="message__form">
-                        <input
-                            className="message__input"
-                            type="text"
-                            placeholder="name"
-                            onChange={authorChange}
-                        />
-                        <input
-                            className="message__input"
-                            type="text"
-                            placeholder="message"
-                            onChange={textChange}
-                        />
-                        <button
-                            type="button"
-                            className="message__btn"
-                            onClick={addMessage}
-                        >
-                            Add
-                        </button>
-                    </form>
-                    <ul className="message__list">{list}</ul>
+        <header className="header">
+            <div className="container">
+                <div className="header__body">
+                    <Title title={title} />
+                    <div className="messages">
+                        <form className="messages__form">
+                            <input
+                                className="messages__input"
+                                type="text"
+                                placeholder="name"
+                                onChange={authorChange}
+                            />
+                            <input
+                                className="messages__input"
+                                type="text"
+                                placeholder="message"
+                                onChange={textChange}
+                            />
+                            <button
+                                type="button"
+                                className="messages__btn"
+                                onClick={addMessage}
+                            >
+                                Add
+                            </button>
+                        </form>
+                        <ul className="messages__list">{list}</ul>
+                    </div>
                 </div>
-            </header>
-        </div>
+            </div>
+        </header>
     );
 }
 
