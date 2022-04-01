@@ -21,9 +21,9 @@ function App() {
             return result;
         });
     };
-    const list = messageList.map((el) => {
+    const list = messageList.map((el, idx) => {
         return (
-            <li className="messages__item">
+            <li className="messages__item" key={idx}>
                 <h4 className="messages__author">{el.author}:</h4>
                 <p className="messages__text">{el.text}</p>
             </li>
