@@ -40,6 +40,7 @@ export default function Messages({
                         borderRadius: "3px",
                         marginBottom: "10px",
                     }}
+                    autoFocus
                 />
                 <TextField
                     id="outlined-basic"
