@@ -13,9 +13,6 @@ html {
     font-family: Arial, sans-serif;
     font-size: 10px;
 }
-body {
-    background-color: #ccc;
-}
 .container {
     max-width: 960px;
     margin: 0 auto;
@@ -26,39 +23,38 @@ body {
     &__body {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
 
     &__title {
+        text-align: center;
         font-size: 3rem;
         padding: 20px;
     }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.chats {
+    width: 25%;
 }
 
 .messages {
-    display: flex;
-    flex-direction: column;
+    width: 70%;
 
     &__form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     &__input {
-        display: block;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-size: 2rem;
+        width: 100%;
     }
 
     &__btn {
-        display: block;
         width: 100%;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-size: 2rem;
     }
 
     &__list {
@@ -76,6 +72,7 @@ body {
     }
 
     &__text {
+        padding: 5px 10px;
         font-size: 1.5rem;
     }
 }
