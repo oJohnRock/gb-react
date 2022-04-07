@@ -34,9 +34,13 @@ html {
 
     &__menu {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         list-style-type: none;
         margin-bottom: 20px;
+
+        &-item {
+            margin: 20px;
+        }
 
         a {
             color: #000;
