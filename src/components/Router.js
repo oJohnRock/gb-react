@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Title from "./Title";
+import Home from "../pages/Home";
+import Profile from "../pages/Profile";
 
 function Router() {
     const title = "Урок 4. Children. Роутинг в React";
@@ -22,8 +24,8 @@ function Router() {
             </header>
 
             <Routes>
-                <Route path="/" />
-                <Route path="/profile" />
+                <Route path="/" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/chats" />
             </Routes>
         </BrowserRouter>
