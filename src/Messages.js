@@ -9,9 +9,12 @@ import { useTheme } from "@emotion/react";
 
 export default function Messages({
     messageList,
+    author,
     authorChange,
+    text,
     textChange,
     addMessage,
+    inputRef,
 }) {
     const theme = useTheme();
 
@@ -34,12 +37,14 @@ export default function Messages({
                     label="Author"
                     variant="outlined"
                     onChange={authorChange}
+                    value={author}
                     style={{
                         backgroundColor: theme.palette.primary.main,
                         borderColor: theme.palette.secondary.main,
                         borderRadius: "3px",
                         marginBottom: "10px",
                     }}
+                    inputRef={inputRef}
                     autoFocus
                 />
                 <TextField
@@ -47,6 +52,7 @@ export default function Messages({
                     label="Message"
                     variant="outlined"
                     onChange={textChange}
+                    value={text}
                     style={{
                         backgroundColor: theme.palette.primary.main,
                         borderColor: theme.palette.secondary.main,

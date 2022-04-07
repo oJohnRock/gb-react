@@ -5,7 +5,7 @@ import Messages from "./Messages";
 import ChatList from "./ChatList";
 
 function App() {
-    const title = "Урок 3. Virtual DOM. Material UI. PropTypes";
+    const title = "Урок 4. Children. Роутинг в React";
 
     const [author, setAuthor] = useState("");
     const authorChange = (e) => {
@@ -21,6 +21,7 @@ function App() {
         { author: "max", text: "dvbfblvesbvbaes" },
         { author: "lex", text: "svnlkbnklb" },
     ]);
+    const inputRef = useRef(null);
     const addMessage = () => {
         if (author === "" || text === "") return;
 
@@ -28,6 +29,10 @@ function App() {
             ...prevMessageList,
             { author: author, text: text },
         ]);
+
+        setAuthor("");
+        setText("");
+        inputRef.current?.focus();
     };
 
     useEffect(() => {
@@ -44,11 +49,6 @@ function App() {
         }, 1500);
     }, [messageList]);
 
-    const inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
     const chatList = [
         { id: "chat-1", name: "study" },
         { id: "chat-2", name: "work" },
@@ -64,9 +64,12 @@ function App() {
                         <ChatList chatList={chatList} />
                         <Messages
                             messageList={messageList}
+                            author={author}
                             authorChange={authorChange}
-                            addMessage={addMessage}
+                            text={text}
                             textChange={textChange}
+                            addMessage={addMessage}
+                            inputRef={inputRef}
                         />
                     </div>
                 </div>
