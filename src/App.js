@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./App.scss";
-import Title from "./Title";
-import Messages from "./Messages";
-import ChatList from "./ChatList";
+import Messages from "./components/Messages";
+import ChatList from "./components/ChatList";
+import Router from "./components/Router";
 
 function App() {
-    const title = "Урок 4. Children. Роутинг в React";
-
     const [author, setAuthor] = useState("");
     const authorChange = (e) => {
         setAuthor(e.target.value);
@@ -56,11 +54,11 @@ function App() {
     ];
 
     return (
-        <header className="header">
+        <main className="main">
             <div className="container">
-                <div className="header__body">
-                    <Title title={title} />
-                    <div className="header__wrapper">
+                <Router />
+                <div className="main__body">
+                    <div className="main__wrapper">
                         <ChatList chatList={chatList} />
                         <Messages
                             messageList={messageList}
@@ -74,7 +72,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </header>
+        </main>
     );
 }
 

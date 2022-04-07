@@ -32,6 +32,21 @@ html {
         padding: 20px;
     }
 
+    &__menu {
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+        margin-bottom: 20px;
+
+        a {
+            color: #000;
+            text-decoration: none;
+            font-size: 25px;
+        }
+    }
+}
+
+.main {
     &__wrapper {
         display: flex;
         justify-content: space-between;

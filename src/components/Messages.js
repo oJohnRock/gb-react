@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.scss";
+import "../App.scss";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
