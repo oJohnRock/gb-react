@@ -4,6 +4,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { green, purple } from "@mui/material/colors";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const theme = createTheme({
     palette: {
@@ -18,9 +20,11 @@ const theme = createTheme({
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById("root")
 );
