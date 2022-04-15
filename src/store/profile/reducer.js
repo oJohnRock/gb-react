@@ -1,8 +1,9 @@
-import { TOGGLE_NAME } from "./actions";
+import { TOGGLE_CHECKBOX, TOGGLE_NAME } from "./actions";
 
 const initialState = {
     showName: false,
     name: "Max",
+    checkbox: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showName: !state.showName,
+            };
+        case TOGGLE_CHECKBOX:
+            return {
+                ...state,
+                checkbox: !state.checkbox,
             };
         default:
             return state;
