@@ -47,11 +47,7 @@ const Chats = () => {
             <div className="main__wrapper">
                 <ChatList chatList={initialChats} />
                 <div className="messages__wrapper">
-                    <ControlPanel
-                        chatId={chatId}
-                        chats={chats}
-                        setChats={setChats}
-                    />
+                    <ControlPanel chats={chats} setChats={setChats} />
                     <MessageList messages={initialChats[chatId].messages} />
                 </div>
             </div>

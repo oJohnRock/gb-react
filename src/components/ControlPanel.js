@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 import { useTheme } from "@emotion/react";
 import { useParams } from "react-router-dom";
 
-const ControlPanel = ({ chatId, chats, setChats }) => {
+const ControlPanel = ({ chats, setChats }) => {
     const theme = useTheme();
+    const { chatId } = useParams();
 
     const [author, setAuthor] = useState("");
     const authorChange = (e) => {
@@ -18,7 +19,7 @@ const ControlPanel = ({ chatId, chats, setChats }) => {
     };
 
     const [messageList, setMessageList] = useState(chats[chatId].messages);
-    console.log(messageList);
+
     const inputRef = useRef(null);
     const addMessage = () => {
         if (author === "" || text === "") return;
@@ -45,6 +46,15 @@ const ControlPanel = ({ chatId, chats, setChats }) => {
                 ]);
             }
         }, 1500);
+    }, [messageList]);
+
+    useEffect(() => {
+        setChats((prevChats) => {
+            const newChats = { ...prevChats };
+            newChats[chatId].messages = messageList;
+
+            return newChats;
+        });
     }, [messageList]);
 
     return (
