@@ -1,37 +1,71 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Title from "./Title";
+import { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Chats from "../pages/Chats";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import Chats from "../pages/Chats";
 
-function Router() {
-    const title = "Урок 4. Children. Роутинг в React";
+const initialChats = {
+    id1: {
+        name: "Study",
+        messages: [
+            { author: "max", text: "vfkjblfbljkfljdsbkd" },
+            { author: "lex", text: "12312312132" },
+        ],
+    },
+    id2: { name: "Enjoy", messages: [{ author: "mix", text: "sadvsdv" }] },
+    id3: {
+        name: "Other",
+        messages: [
+            { author: "qwetew", text: "sdbs33r233413" },
+            { author: "ddb", text: "12141241534635fgndng" },
+            { author: "qwetew", text: "sdbs33r233413" },
+            { author: "ddb", text: "12141241534635fgndng" },
+        ],
+    },
+};
+
+const Router = () => {
+    const [chats, setChats] = useState(initialChats);
+
+    const updateMessages = (chatId, messages) => {
+        setChats({
+            ...chats,
+            [chatId]: { name: chats[chatId].name, messages: messages },
+        });
+    };
 
     return (
-        <BrowserRouter>
-            <header className="header">
-                <Title title={title} />
-                <ul className="header__menu">
-                    <li className="header__menu-item">
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className="header__menu-item">
-                        <Link to="/profile">Profile</Link>
-                    </li>
-                    <li className="header__menu-item">
-                        <Link to="/chats">Chats</Link>
-                    </li>
-                </ul>
-            </header>
-
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                    <Link to="/chats">Chats</Link>
+                </li>
+            </ul>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" exact element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/chats/:chatId" element={<Chats />} />
-                <Route path="*" element={<Chats />} />
+                <Route path="/chats">
+                    <Route index element={<Chats chats={chats} />} />
+                    <Route
+                        path="/chats/:chatId"
+                        element={
+                            <Chats
+                                chats={chats}
+                                updateMessages={updateMessages}
+                            />
+                        }
+                    />
+                </Route>
+                <Route path="*" element={<Home />}></Route>
             </Routes>
-        </BrowserRouter>
+        </nav>
     );
-}
+};
 
 export default Router;

@@ -1,34 +1,31 @@
-import React from "react";
-import "../App.scss";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import { useTheme } from "@emotion/react";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ImageIcon from "@mui/icons-material/Image";
 import { Link } from "react-router-dom";
 
-export default function ChatList({ chatList }) {
-    const theme = useTheme();
-    const list = Object.keys(chatList).map((el) => (
-        <Link to={`/chats/${el}`} key={el}>
-            <ListItem
-                className="chat__item"
-                disablePadding
-                style={{
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.secondary.main,
-                    borderRadius: "3px",
-                    marginBottom: "10px",
-                }}
-            >
-                <ListItemButton>
-                    <ListItemText>
-                        <h4 className="chat__name">{chatList[el].name}</h4>
-                    </ListItemText>
-                </ListItemButton>
-            </ListItem>
-        </Link>
-    ));
+const ChatList = ({ chats }) => {
+    return (
+        <List className="chat-list">
+            {Object.keys(chats).map((chat, index) => (
+                <Link to={`/chats/${chat}`} key={index}>
+                    <ListItem className="chat-item">
+                        <ListItemAvatar>
+                            <Avatar>
+                                <ImageIcon />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={chats[chat].name}
+                            className="chat-item-name"
+                        />
+                    </ListItem>
+                </Link>
+            ))}
+        </List>
+    );
+};
 
-    return <List className="chat__list">{list}</List>;
-}
+export default ChatList;

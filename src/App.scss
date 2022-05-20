@@ -1,99 +1,54 @@
-*,
-*::before,
-*::after {
-    padding: 0;
-    margin: 0;
-}
 html,
 body {
-    background-color: #ccc;
     width: 100%;
     height: 100%;
 }
-html {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
+
+body {
+    background-color: #282c34;
+    font-size: 18px;
+    color: white;
 }
+
 .container {
-    max-width: 960px;
+    max-width: 1024px;
     margin: 0 auto;
 }
-.header {
-    width: 100%;
 
-    &__body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__title {
-        text-align: center;
-        font-size: 3rem;
-        padding: 20px;
-    }
-
-    &__menu {
-        display: flex;
-        justify-content: center;
-        list-style-type: none;
-        margin-bottom: 20px;
-
-        &-item {
-            margin: 20px;
-        }
-
-        a {
-            color: #000;
-            text-decoration: none;
-            font-size: 25px;
-        }
-    }
+.App-link {
+    color: #61dafb;
 }
 
-.main {
-    &__wrapper {
-        display: flex;
-        justify-content: space-between;
-    }
+.App-header {
+    text-align: center;
+}
+
+.App-main-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
 }
 
 .chat {
-    &__list {
+    &-list {
         display: flex;
         flex-direction: column;
-        list-style-type: none;
-        width: 25%;
+    }
+
+    &-item-name {
+        color: #fff;
+        text-decoration: none;
     }
 }
 
-.messages {
-    &__wrapper {
-        width: 70%;
-    }
-
-    &__form {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    &__list {
-        display: flex;
-        flex-direction: column;
+.message {
+    &-list {
         list-style-type: none;
     }
 
-    &__item {
-        margin-bottom: 10px;
-    }
-
-    &__author {
-        font-size: 2rem;
-    }
-
-    &__text {
-        padding: 5px 10px;
-        font-size: 1.5rem;
+    &-form {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
     }
 }

@@ -1,6 +1,5 @@
-import React from "react";
-import "../App.scss";
+const Title = ({ text }) => {
+    return <h1 className="title">{text}</h1>;
+};
 
-export default function Title(props) {
-    return <h1 className="header__title">{props.title}</h1>;
-}
+export default Title;

@@ -1,103 +1,86 @@
-import React, { useEffect, useState, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useTheme } from "@emotion/react";
+import SendIcon from "@mui/icons-material/Send";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AUTHOR } from "../constants/common";
 
-const ControlPanel = ({ chats, setChats }) => {
-    const theme = useTheme();
+const ControlPanel = ({ chats, updateMessages }) => {
     const { chatId } = useParams();
 
     const [author, setAuthor] = useState("");
-    const authorChange = (e) => {
-        setAuthor(e.target.value);
+    const handleAuthor = (event) => {
+        setAuthor(event.target.value);
     };
 
-    const [text, setText] = useState("");
-    const textChange = (e) => {
-        setText(e.target.value);
+    const [message, setMessage] = useState("");
+    const handleMessage = (event) => {
+        setMessage(event.target.value);
     };
-
-    const [messageList, setMessageList] = useState(chats[chatId].messages);
 
     const inputRef = useRef(null);
-    const addMessage = () => {
-        if (author === "" || text === "") return;
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
 
-        setMessageList((prevMessageList) => [
-            ...prevMessageList,
-            { author: author, text: text },
-        ]);
+    const [messages, setMessages] = useState(chats[chatId].messages);
+
+    const addMessage = () => {
+        if (author.length >= 3 && message !== "") {
+            setMessages([...messages, { author: author, text: message }]);
+        }
 
         setAuthor("");
-        setText("");
-        inputRef.current?.focus();
+        setMessage("");
     };
 
     useEffect(() => {
-        const lastMessage = messageList[messageList.length - 1];
-        if (lastMessage == undefined) return;
-
         const timerId = setTimeout(() => {
-            if (lastMessage.author !== "BOT") {
-                setMessageList((prevMessageList) => [
-                    ...prevMessageList,
+            if (
+                messages.length > 0 &&
+                messages[messages.length - 1].author !== AUTHOR.bot
+            ) {
+                setMessages([
+                    ...messages,
                     { author: "BOT", text: "BOT MESSAGE" },
                 ]);
             }
         }, 1500);
-    }, [messageList]);
+    }, [messages]);
 
     useEffect(() => {
-        setChats((prevChats) => {
-            const newChats = { ...prevChats };
-            newChats[chatId].messages = messageList;
-
-            return newChats;
-        });
-    }, [messageList]);
+        updateMessages(chatId, messages);
+    }, [messages]);
 
     return (
-        <form className="messages__form">
+        <form className="message-form">
             <TextField
                 id="outlined-basic"
-                label="Author"
+                label="name"
                 variant="outlined"
-                onChange={authorChange}
+                className="message-text"
+                placeholder="name"
                 value={author}
-                style={{
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.secondary.main,
-                    borderRadius: "3px",
-                    marginBottom: "10px",
-                }}
-                inputRef={inputRef}
+                onChange={handleAuthor}
                 autoFocus
+                inputRef={inputRef}
             />
             <TextField
                 id="outlined-basic"
-                label="Message"
+                label="message"
                 variant="outlined"
-                onChange={textChange}
-                value={text}
-                style={{
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.secondary.main,
-                    borderRadius: "3px",
-                    marginBottom: "10px",
-                }}
+                className="message-text"
+                placeholder="message"
+                value={message}
+                onChange={handleMessage}
             />
             <Button
                 variant="contained"
+                className="message-btn"
                 type="button"
                 onClick={addMessage}
-                style={{
-                    backgroundColor: theme.palette.primary.main,
-                    borderColor: theme.palette.secondary.main,
-                    borderRadius: "3px",
-                }}
             >
-                Contained
+                Send <SendIcon />
             </Button>
         </form>
     );
