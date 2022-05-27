@@ -5,6 +5,8 @@ import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green, purple } from "@mui/material/colors";
 import { BrowserRouter } from "react-router-dom";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const theme = createTheme({
     palette: {
@@ -21,10 +23,12 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <App />
-            </ThemeProvider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>
 );
