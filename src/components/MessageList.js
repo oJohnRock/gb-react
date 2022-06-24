@@ -6,28 +6,29 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ControlPanel from "../components/ControlPanel";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const MessageList = ({ chats, updateMessages }) => {
+const MessageList = () => {
     const { chatId } = useParams();
-
-    if (!chatId) return;
+    const { messageList } = useSelector((state) => state.messages);
+    const messages = messageList[chatId] || [];
 
     return (
         <>
-            <ControlPanel chats={chats} updateMessages={updateMessages} />
+            {chatId && <ControlPanel />}
             <List className="message-list">
-                {chats[chatId].messages.map((item, index) => (
+                {messages.map((message) => (
                     <ListItem
                         alignItems="flex-start"
                         className="message-item"
-                        key={index}
+                        key={message.id}
                     >
                         <ListItemAvatar>
                             <AccountCircleIcon />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={item.author}
-                            secondary={item.text}
+                            primary={message.author}
+                            secondary={message.text}
                         />
                     </ListItem>
                 ))}

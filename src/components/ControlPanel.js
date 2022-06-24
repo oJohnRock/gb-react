@@ -3,84 +3,55 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AUTHOR } from "../constants/common";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    addMessageWithThunk,
+    addMessage,
+    addMessageWithSaga,
+} from "../store/messages/actions";
 
-const ControlPanel = ({ chats, updateMessages }) => {
+const ControlPanel = () => {
     const { chatId } = useParams();
+    const { name } = useSelector((state) => state.profile);
+    const dispatch = useDispatch();
 
-    const [author, setAuthor] = useState("");
-    const handleAuthor = (event) => {
-        setAuthor(event.target.value);
-    };
-
-    const [message, setMessage] = useState("");
-    const handleMessage = (event) => {
-        setMessage(event.target.value);
+    const [value, setValue] = useState("");
+    const handleInput = (e) => {
+        setValue(e.target.value);
     };
 
     const inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
-    const [messages, setMessages] = useState(chats[chatId].messages);
-
-    const addMessage = () => {
-        if (author.length >= 3 && message !== "") {
-            setMessages([...messages, { author: author, text: message }]);
+    const handleClick = () => {
+        if (name.length >= 3 && value !== "") {
+            dispatch(
+                addMessageWithThunk(chatId, { author: name, text: value })
+            );
         }
 
-        setAuthor("");
-        setMessage("");
+        setValue("");
+        inputRef.current?.focus();
     };
-
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            if (
-                messages.length > 0 &&
-                messages[messages.length - 1].author !== AUTHOR.bot
-            ) {
-                setMessages([
-                    ...messages,
-                    { author: "BOT", text: "BOT MESSAGE" },
-                ]);
-            }
-        }, 1500);
-    }, [messages]);
-
-    useEffect(() => {
-        updateMessages(chatId, messages);
-    }, [messages]);
 
     return (
         <form className="message-form">
             <TextField
                 id="outlined-basic"
-                label="name"
-                variant="outlined"
-                className="message-text"
-                placeholder="name"
-                value={author}
-                onChange={handleAuthor}
-                autoFocus
-                inputRef={inputRef}
-            />
-            <TextField
-                id="outlined-basic"
-                label="message"
+                label="Введите сообщение"
                 variant="outlined"
                 className="message-text"
                 placeholder="message"
-                value={message}
-                onChange={handleMessage}
+                value={value}
+                onChange={handleInput}
+                inputRef={inputRef}
             />
             <Button
                 variant="contained"
                 className="message-btn"
                 type="button"
-                onClick={addMessage}
+                onClick={handleClick}
             >
-                Send <SendIcon />
+                Отправить
+                <SendIcon />
             </Button>
         </form>
     );

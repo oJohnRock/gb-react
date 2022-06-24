@@ -1,1 +1,1 @@
-export const AUTHOR = { me: "Admin", bot: "BOT" };
+export const AUTHOR = { me: "Unnamed user", bot: "BOT" };

@@ -1,26 +1,46 @@
-import { useCallback } from "react";
-import { changeVisible, changeCheckbox } from "../store/profile/actions";
+import { useState } from "react";
+import { updateName } from "../store/profile/actions";
 import { useDispatch, useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Profile = () => {
-    const { name, showName, checkbox } = useSelector((state) => state);
+    const { name } = useSelector((state) => state.profile);
     const dispatch = useDispatch();
 
-    const setShowName = useCallback(() => {
-        dispatch(changeVisible);
-    }, [dispatch]);
+    const [value, setValue] = useState("");
+    const handleInput = (e) => {
+        setValue(e.target.value);
+    };
 
-    const setCheckbox = useCallback(() => {
-        dispatch(changeCheckbox);
-    }, [dispatch]);
+    const saveName = () => {
+        dispatch(updateName(value));
+        setValue("");
+    };
 
     return (
         <div>
             <h2>Profile</h2>
-            <button onClick={setShowName}>Show Name</button>
-            <p>{showName && name}</p>
-            <input type="checkbox" onChange={setCheckbox} checked={checkbox} />
-            {checkbox && <h2>{name}</h2>}
+            <p>Текущее имя: {name}</p>
+            <form className="author-update">
+                <TextField
+                    id="outlined-basic"
+                    label="Изменить имя"
+                    variant="outlined"
+                    className="author-name"
+                    value={value}
+                    onChange={handleInput}
+                    autoFocus
+                />
+                <Button
+                    variant="contained"
+                    className="author-save"
+                    type="button"
+                    onClick={saveName}
+                >
+                    Сохранить
+                </Button>
+            </form>
         </div>
     );
 };

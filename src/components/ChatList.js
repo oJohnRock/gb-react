@@ -5,38 +5,31 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { MyThemeContext } from "../App";
+import { useDispatch, useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { addChat } from "../store/chats/actions";
+import { useState } from "react";
 
-const ChatList = ({ chats }) => {
-    const contextValue = useContext(MyThemeContext);
+const ChatList = () => {
+    const chats = useSelector((state) => state.chats.chatList);
+    const dispatch = useDispatch();
+
+    const [value, setValue] = useState("");
+    const handleInput = (e) => {
+        setValue(e.target.value);
+    };
+
+    const saveChat = () => {
+        dispatch(addChat(value));
+        setValue("");
+    };
 
     return (
-        <>
-            <MyThemeContext.Consumer>
-                {(theme) => {
-                    return (
-                        <div>
-                            <h1>{theme.theme}</h1>
-                            <button
-                                onClick={() =>
-                                    theme.setTheme(
-                                        theme.theme === "dark"
-                                            ? "light"
-                                            : "dark"
-                                    )
-                                }
-                            >
-                                Change
-                            </button>
-                        </div>
-                    );
-                }}
-            </MyThemeContext.Consumer>
-
+        <div className="chat-list-wrapper">
             <List className="chat-list">
-                {Object.keys(chats).map((chat, index) => (
-                    <Link to={`/chats/${chat}`} key={index}>
+                {chats.map((chat) => (
+                    <Link to={`/chats/${chat.id}`} key={chat.id}>
                         <ListItem className="chat-item">
                             <ListItemAvatar>
                                 <Avatar>
@@ -44,14 +37,33 @@ const ChatList = ({ chats }) => {
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText
-                                primary={chats[chat].name}
+                                primary={chat.name}
                                 className="chat-item-name"
                             />
                         </ListItem>
                     </Link>
                 ))}
             </List>
-        </>
+            <form className="chats-update">
+                <TextField
+                    id="outlined-basic"
+                    label="Имя чата"
+                    variant="outlined"
+                    className="author-name"
+                    value={value}
+                    onChange={handleInput}
+                    autoFocus
+                />
+                <Button
+                    variant="contained"
+                    className="author-save"
+                    type="button"
+                    onClick={saveChat}
+                >
+                    Добавить новый чат
+                </Button>
+            </form>
+        </div>
     );
 };
 
